@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found · Urbun Bakery</title>
+<meta name="robots" content="noindex">
+<script>
+  // This page can be served from any missing path, so point relative links at the site root.
+  // GitHub Pages project sites live under /urbun-website/; a custom domain lives at /.
+  document.write('<base href="' + (location.pathname.indexOf('/urbun-website/') === 0 ? '/urbun-website/' : '/') + '">');
+</script>
+<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32.png">
+<link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#F4C542">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Figtree:wght@400;700&display=swap">
+<style>
+:root{--sesame:#F4C542;--crust:#2A1A0B;--crumb:#FFF7E3;--tomato:#B8361F;--tomato-dark:#962A17;
+  --display:'Bricolage Grotesque','Arial Rounded MT Bold',system-ui,sans-serif;--body:Figtree,'Helvetica Neue',Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;background:var(--sesame);color:var(--crust);font:400 18px/1.55 var(--body)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--crust);outline-offset:3px;border-radius:6px}
+header{padding:14px max(16px,4vw)}
+header img{height:56px;width:auto;mix-blend-mode:multiply}
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:24px 16px 80px}
+.card{background:var(--crumb);border-radius:32px;padding:clamp(28px,6vw,64px);max-width:640px;text-align:center}
+.code{font:800 clamp(72px,16vw,140px)/1 var(--display);letter-spacing:-.04em;margin:0}
+h1{font:800 clamp(28px,4vw,40px)/1.05 var(--display);letter-spacing:-.03em;margin:8px 0 12px;text-wrap:balance}
+p{margin:0 auto 28px;max-width:42ch}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;min-height:52px;padding:0 24px;border-radius:999px;font:700 16px var(--body);text-decoration:none}
+.red{background:var(--tomato);color:var(--crumb)} .red:hover{background:var(--tomato-dark)}
+.dark{background:var(--crust);color:var(--crumb)}
+</style>
+</head>
+<body>
+<header><a href="./" aria-label="Urbun Bakery home"><img src="images/logo-black.png" alt="Urbun Bakery" width="375" height="417"></a></header>
+<main>
+  <div class="card">
+    <p class="code" aria-hidden="true">404</p>
+    <h1>This bun's gone missing.</h1>
+    <p>The page you're after doesn't exist or has moved. Head back to the home page, or get in touch and we'll help.</p>
+    <div class="btns">
+      <a class="btn red" href="./">Back to home</a>
+      <a class="btn dark" href="./#enquire">Contact us</a>
+    </div>
+  </div>
+</main>
+</body>
+</html>

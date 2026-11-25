@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jjcmallia-ops.github.io/urbun-website/sitemap.xml
