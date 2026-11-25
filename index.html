@@ -238,6 +238,36 @@ footer{background:var(--crust);color:var(--crumb)}
   .dark{border-radius:32px 32px 0 0}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+
+/* ---------- Motion ---------- */
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.94) rotate(-1.5deg)}to{opacity:1;transform:none}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+/* hero entrance on load */
+.hero-copy > *{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.hero-copy > :nth-child(2){animation-delay:.08s} .hero-copy > :nth-child(3){animation-delay:.16s}
+.hero-copy > :nth-child(4){animation-delay:.24s} .hero-copy > :nth-child(5){animation-delay:.32s}
+.hero-copy > :nth-child(6){animation-delay:.4s}
+.hero-media{animation:pop 1s cubic-bezier(.2,.7,.2,1) .15s both}
+.hero-media .slot{animation:bob 6s ease-in-out 1.2s infinite}
+/* scroll reveal: only hides things once JS has confirmed it can show them again */
+.motion [data-reveal]{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.2,.7,.2,1) var(--d,0s),transform .7s cubic-bezier(.2,.7,.2,1) var(--d,0s)}
+.motion [data-reveal].in{opacity:1;transform:none}
+/* hover polish */
+.bun,.steps li,.testi,.region,.partner{transition:transform .25s ease,box-shadow .25s ease}
+.bun:hover,.steps li:hover,.testi:hover,.region:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(42,26,11,.16)}
+.partner:hover{transform:translateY(-4px)}
+.bun .slot img,.testi .slot img,.gallery .slot img{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.bun:hover .slot img,.testi:hover .slot img,.gallery .slot:hover img{transform:scale(1.06)}
+.perks div{transition:border-color .25s ease}
+.perks div:hover{border-top-color:var(--crumb)}
+.btn:active{transform:translateY(1px) scale(.98)}
+@media (prefers-reduced-motion:reduce){
+  .hero-copy > *,.hero-media,.hero-media .slot{animation:none}
+  .bun,.steps li,.testi,.region,.partner,.bun .slot img,.testi .slot img,.gallery .slot img{transition:none}
+  .bun:hover,.steps li:hover,.testi:hover,.region:hover,.partner:hover{transform:none}
+  .bun:hover .slot img,.testi:hover .slot img,.gallery .slot:hover img{transform:none}
+}
 </style>
 </head>
 <body>
@@ -597,6 +627,34 @@ form.addEventListener('submit',function(e){
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em.value)){err.textContent='That email address doesn’t look right.';em.focus();return;}
   err.textContent='';form.classList.add('done');
 });
+</script>
+<script>
+// Scroll reveal: fade sections up as they come into view (skipped for reduced motion).
+(function(){
+  if(!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var sel=['main section .head','#distributors .wrap > *','.bun','.steps li','.who','.testi','#delivery .split > div','.regions > .region','.partners-head','.partners-cta','.gallery > *','.enquire','.careers'];
+  var els=[];
+  sel.forEach(function(q){document.querySelectorAll(q).forEach(function(el){
+    if(el.closest('.hero') || els.indexOf(el)>-1) return;
+    var sib=[].filter.call(el.parentNode.children,function(c){return c.matches(q)});
+    el.style.setProperty('--d',(Math.max(0,sib.indexOf(el))%4)*0.09+'s');
+    el.setAttribute('data-reveal','');els.push(el);
+  })});
+  function show(t){
+    if(t.classList.contains('in')) return;
+    t.classList.add('in');io.unobserve(t);
+    // hand back to the normal hover transitions once the reveal has finished
+    setTimeout(function(){t.removeAttribute('data-reveal');t.classList.remove('in');t.style.removeProperty('--d')},1200);
+  }
+  var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting) show(e.target)})},
+    {rootMargin:'0px 0px -8% 0px',threshold:0.12});
+  // fallback: a fast scroll or jump link can skip past items, so show anything already above the fold
+  var ticking=false;
+  function sweep(){ticking=false;els.forEach(function(el){if(el.hasAttribute('data-reveal') && el.getBoundingClientRect().top<innerHeight) show(el)})}
+  addEventListener('scroll',function(){if(!ticking){ticking=true;setTimeout(sweep,150)}},{passive:true});
+  document.documentElement.classList.add('motion');
+  els.forEach(function(el){io.observe(el)});
+})();
 </script>
 </body>
 </html>
