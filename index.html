@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Urbun Bakery · Wholesale burger buns, Sydney</title>
+<meta name="description" content="Sydney burger bun specialists. Fresh buns for venues across NSW &amp; ACT, and frozen buns Australia-wide through foodservice distributors.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Sesame v2: bold yellow ground, dark crust brown, tomato red for actions. Photo-led. */
+:root{
+  --sesame:#F4C542; --sesame-deep:#E8B42C; --crust:#2A1A0B; --crumb:#FFF7E3; --white:#FFFFFF;
+  --tomato:#B8361F; --tomato-dark:#962A17; --muted:#6B5A43; --line:#E7D7AE; --leaf:#DDEBC9;
+  --display:'Bricolage Grotesque','Arial Rounded MT Bold',system-ui,sans-serif;
+  --body:Figtree,'Helvetica Neue',Arial,sans-serif;
+  --r-lg:32px; --r-md:22px; --r-sm:14px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--sesame);color:var(--crust);font:400 17px/1.55 var(--body)}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--crust);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1260px;margin:0 auto;padding-left:max(20px,4vw);padding-right:max(20px,4vw)}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.03em;margin:0;text-wrap:balance}
+h2{font-size:clamp(38px,5vw,68px);line-height:1}
+.eyebrow{font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+.lede{font-size:clamp(18px,1.6vw,20px);max-width:40ch;margin:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 26px;border-radius:999px;font:700 16px var(--body);text-decoration:none;border:0;cursor:pointer;transition:transform .15s ease,background .15s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-red{background:var(--tomato);color:var(--crumb)} .btn-red:hover{background:var(--tomato-dark)}
+.btn-dark{background:var(--crust);color:var(--crumb)}
+.btn-light{background:var(--crumb);color:var(--crust)}
+
+/* image slots: show a placeholder until the real photo is dropped into /images */
+.slot{position:relative;background:var(--sesame-deep);overflow:hidden}
+.slot img{width:100%;height:100%;object-fit:cover}
+.ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:16px;color:var(--crust);background:repeating-linear-gradient(135deg,rgba(42,26,11,.06) 0 12px,transparent 12px 24px)}
+.ph b{font:800 18px/1.1 var(--display)} .ph code{font-size:12px;background:rgba(255,247,227,.7);padding:2px 8px;border-radius:6px}
+
+/* header */
+.top{background:var(--crust);color:var(--crumb);font-size:13px;font-weight:600}
+.top .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:9px}
+header.site{position:sticky;top:0;z-index:20;background:var(--sesame);border-bottom:2px solid transparent;transition:border-color .2s}
+header.site.scrolled{border-bottom-color:var(--crust)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:14px}
+.logo{display:flex;align-items:center;height:64px}
+.logo img{height:64px;width:auto;mix-blend-mode:multiply}
+.menu{display:flex;align-items:center;gap:6px}
+.menu a{text-decoration:none;font-weight:600;padding:10px 14px;border-radius:999px;min-height:44px;display:inline-flex;align-items:center}
+.menu a:hover{background:rgba(42,26,11,.08)}
+.menu .btn{margin-left:8px;padding:0 22px;min-height:48px}
+.burger{display:none;background:var(--crust);color:var(--crumb);border:0;border-radius:999px;min-height:48px;padding:0 18px;font:700 15px var(--body);cursor:pointer}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:56px;align-items:start;padding-block:40px 96px}
+.hero h1{font-size:clamp(50px,6.6vw,100px);line-height:.95}
+.hero-copy{display:flex;flex-direction:column;gap:26px}
+.tag{align-self:flex-start;background:var(--crumb);border-radius:999px;padding:8px 16px;font-weight:700;font-size:14px}
+.hero-media{position:relative}
+.hero-media .slot{border-radius:var(--r-lg);aspect-ratio:1408/1268;box-shadow:0 24px 60px rgba(42,26,11,.22)}
+.badge{position:absolute;left:-20px;bottom:32px;background:var(--crust);color:var(--crumb);border-radius:var(--r-md);padding:16px 20px;display:flex;flex-direction:column;box-shadow:0 12px 30px rgba(42,26,11,.25)}
+.badge strong{font:800 26px/1 var(--display)} .badge span{font-size:14px}
+.facts{display:flex;gap:28px;flex-wrap:wrap;padding-top:8px;border-top:2px solid rgba(42,26,11,.15)}
+.facts div{display:flex;flex-direction:column} .facts strong{font:800 28px/1.1 var(--display)} .facts span{font-size:14px;color:var(--muted)}
+
+/* buns */
+.dark{background:var(--crust);color:var(--crumb);border-radius:48px 48px 0 0}
+.section{padding-block:100px;display:flex;flex-direction:column;gap:44px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.buns{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+@media (max-width:1180px){.buns{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.bun{background:var(--crumb);color:var(--crust);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column}
+.bun .slot{aspect-ratio:4/3}
+.bun-body{padding:22px 24px 26px;display:flex;flex-direction:column;gap:8px}
+.bun h3{font-size:25px;line-height:1.05}
+.bun p{margin:0;color:var(--muted)}
+.pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.pill{background:var(--sesame);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:700}
+.pill.leaf{background:var(--leaf)}
+
+/* distributors */
+.dist{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:56px;align-items:center}
+.dist-copy{display:flex;flex-direction:column;gap:24px}
+.dist-photo{border-radius:var(--r-lg);aspect-ratio:5/4;background:#4A3A28}
+.dist-photo .ph{color:var(--crumb);background:repeating-linear-gradient(135deg,rgba(255,247,227,.06) 0 12px,transparent 12px 24px)}
+.dist-photo .ph code{color:var(--crust)}
+.specs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px;background:#4A3A28;border-radius:var(--r-md);overflow:hidden}
+.specs div{background:#352412;padding:20px;display:flex;flex-direction:column;gap:4px}
+.specs span{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sesame)}
+.specs strong{font:800 clamp(20px,1.7vw,26px)/1.1 var(--display)}
+.specs em{font-style:normal;font-size:14px;color:var(--line)}
+.perks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+.perks div{border-top:3px solid var(--sesame);padding-top:18px;display:flex;flex-direction:column;gap:8px}
+.perks h3{font-size:24px}
+.perks p{margin:0;color:var(--line);font-size:16px}
+.cream .bun{background:var(--white)}
+.sliced{display:inline-flex;align-items:center;gap:8px;margin-top:16px;background:var(--leaf);color:var(--crust);border-radius:999px;padding:8px 16px;font-weight:800;font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+.haccp{display:inline-flex;align-items:center;gap:6px;background:var(--leaf);color:var(--crust);border-radius:999px;padding:6px 14px;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.tabs{display:inline-flex;gap:4px;background:var(--white);padding:5px;border-radius:999px;align-self:flex-start;flex-wrap:wrap}
+.tabs button{all:unset;cursor:pointer;padding:10px 20px;border-radius:999px;font-weight:700;min-height:24px}
+.tabs button[aria-selected="true"]{background:var(--crust);color:var(--crumb)}
+.tabs button:focus-visible{outline:3px solid var(--crust);outline-offset:2px}
+
+/* steps */
+.cream{background:var(--crumb)}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.steps li{background:var(--white);border-radius:var(--r-md);padding:26px;display:flex;flex-direction:column;gap:10px}
+.steps .n{width:44px;height:44px;border-radius:50%;background:var(--sesame);display:grid;place-items:center;font:800 20px var(--display)}
+.steps h3{font-size:24px}
+.steps p{margin:0;color:var(--muted);font-size:16px}
+.who{display:flex;gap:10px;flex-wrap:wrap}
+.who span{background:var(--crumb);border-radius:999px;padding:12px 22px;font-weight:700;font-size:18px}
+.testis{display:flex;flex-direction:column;gap:24px;padding-top:24px}
+.testi-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.testi{margin:0;background:var(--white);border-radius:var(--r-lg);overflow:hidden;display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr)}
+.testi .slot{min-height:100%}
+.testi-body{padding:24px 26px 28px;display:flex;flex-direction:column;gap:14px}
+.testi .hl{font:800 clamp(22px,2vw,28px)/1.1 var(--display);letter-spacing:-.02em;margin:0}
+.testi blockquote{margin:0;font-size:16px;line-height:1.55;color:#4A3A28}
+.testi figcaption{display:flex;flex-direction:column;gap:2px;padding-top:14px;border-top:2px solid var(--line)}
+.testi figcaption strong{font-size:16px}
+.testi figcaption span{font-size:14px;color:var(--muted)}
+
+/* delivery */
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:56px;align-items:center}
+.regions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.region{background:var(--crumb);border-radius:var(--r-md);padding:22px 24px;display:flex;flex-direction:column}
+.region strong{font:800 30px/1.05 var(--display)} .region span{font-size:14px;color:var(--muted)}
+.region.wide{grid-column:1/-1;background:var(--crust);color:var(--crumb)} .region.wide span{color:var(--line)}
+.stockists{margin-top:56px;display:flex;flex-direction:column;gap:22px}
+.stockists-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px 32px;flex-wrap:wrap}
+.stockists-head h3{font-size:clamp(26px,3vw,36px)} .stockists-head p{margin:0;color:var(--muted)}
+.stockist-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.stockist-grid>div{background:var(--white);border:2px solid var(--line);border-radius:var(--r-md);padding:20px 22px}
+.stockist-grid strong{font:800 24px/1 var(--display);display:block;margin-bottom:10px}
+.stockist-grid ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;font-size:15px}
+.stockist-grid .gap{border-style:dashed;background:transparent}
+.stockist-grid .gap a{font-weight:700;color:var(--tomato)}
+.kind{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px;color:var(--muted);font-size:15px}
+.kind-tag{border-radius:999px;padding:6px 14px;font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.kind-tag.fresh{background:var(--leaf);color:var(--crust)}
+.kind-tag.frozen{background:var(--crust);color:var(--crumb)}
+/* trusted partners marquee */
+.partners{background:var(--crumb);padding:96px 0;overflow:hidden}
+.partners-head{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;margin-bottom:48px}
+.partners-head h2{font-size:clamp(34px,4.6vw,60px);max-width:17ch}
+.partners-head p{margin:0;max-width:56ch;color:var(--muted)}
+.marquee{--gap:20px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee-track{display:flex;gap:var(--gap);width:max-content;margin:0;padding:8px 0;list-style:none;animation:marquee 50s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.partner{flex:0 0 auto;width:250px;height:160px;background:var(--white);border:2px solid var(--line);border-radius:var(--r-md);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px 26px}
+.partner img{display:block;max-width:100%;max-height:76px;object-fit:contain}
+.partner.dark{background:#16100A;border-color:#16100A}
+.partner.dark .ptype.frozen{background:var(--crumb);color:var(--crust)}
+.partner .wordmark{font:800 28px/1 var(--display);color:var(--crust);letter-spacing:-.01em}
+.ptype{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 10px}
+.ptype.fresh{background:var(--leaf);color:var(--crust)} .ptype.frozen{background:var(--crust);color:var(--crumb)}
+.partners-cta{display:flex;justify-content:center;margin-top:40px}
+@keyframes marquee{to{transform:translateX(calc(-50% - var(--gap) / 2))}}
+@media (prefers-reduced-motion:reduce){
+  .marquee{-webkit-mask-image:none;mask-image:none}
+  .marquee-track{animation:none;width:auto;flex-wrap:wrap;justify-content:center;padding-inline:16px}
+  .marquee-track [aria-hidden="true"]{display:none}
+}
+@media (max-width:600px){
+  .partners{padding:72px 0}
+  .partner{width:190px;height:130px;padding:16px 18px}
+  .partner img{max-height:56px} .partner .wordmark{font-size:22px}
+}
+/* stocked-by strip (dark section) */
+.stocked{display:flex;align-items:center;gap:14px 28px;flex-wrap:wrap;padding:22px 0 30px;margin-bottom:34px;border-bottom:1px solid rgba(231,215,174,.25)}
+.stocked span{color:var(--sesame);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.stocked ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:10px}
+.stocked li{border:1.5px solid rgba(231,215,174,.45);border-radius:999px;padding:8px 16px;font:700 16px/1 var(--display);color:var(--crumb)}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.gallery .slot{aspect-ratio:1;border-radius:var(--r-md)}
+
+/* form */
+.enquire{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.2fr);gap:48px;background:var(--crumb);border-radius:40px;padding:clamp(26px,4vw,56px)}
+.contact{display:flex;flex-direction:column;gap:20px}
+.contact dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 18px}
+.contact dt{font-weight:700} .contact dd{margin:0}
+form{display:flex;flex-direction:column;gap:16px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+label.f{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:14px}
+.f input,.f select,.f textarea{font:400 16px/1.4 var(--body);padding:12px 16px;border:2px solid var(--line);background:var(--white);border-radius:var(--r-sm);min-height:50px;color:var(--crust)}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--crust)}
+fieldset{border:0;margin:0;padding:0}
+legend{font-weight:700;font-size:14px;margin-bottom:8px;padding:0}
+.checks{display:flex;gap:8px;flex-wrap:wrap}
+.checks label{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;border:2px solid var(--line);background:var(--white);font-weight:600;cursor:pointer}
+.checks input{accent-color:var(--tomato);width:18px;height:18px}
+.checks label:has(input:checked){border-color:var(--crust);background:var(--sesame)}
+.note{font-size:14px;color:var(--muted);margin:0}
+.sent{display:none;background:var(--leaf);border-radius:var(--r-sm);padding:14px 18px;font-weight:600}
+form.done .sent{display:block}
+
+/* footer */
+footer{background:var(--crust);color:var(--crumb)}
+.careers{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;padding-block:72px;border-bottom:1px solid #4A3A28}
+.careers p{margin:8px 0 0;color:var(--line)}
+.foot{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:32px;padding-block:56px 32px}
+.foot h3{font:700 13px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--line);margin-bottom:12px}
+.foot ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.foot a{text-decoration:none} .foot a:hover{text-decoration:underline}
+.foot .wm{background:var(--crumb);border-radius:var(--r-md);padding:14px;display:inline-flex}
+.foot .wm img{height:72px;width:auto}
+.legal{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:20px 36px;font-size:14px;color:var(--line);border-top:1px solid #4A3A28}
+
+@media (max-width:980px){
+  .hero,.split,.enquire,.dist,.testi-grid{grid-template-columns:minmax(0,1fr)}
+  .testi{grid-template-columns:minmax(0,200px) minmax(0,1fr)}
+  .specs{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .perks,.stockist-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .buns{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps,.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .foot{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .menu{display:none;position:absolute;left:0;right:0;top:100%;background:var(--sesame);flex-direction:column;align-items:stretch;padding:8px max(20px,4vw) 20px;border-bottom:2px solid var(--crust)}
+  .menu.open{display:flex}
+  .menu .btn{margin:8px 0 0}
+  .burger{display:inline-flex;align-items:center}
+  .badge{left:12px}
+}
+@media (max-width:600px){
+  .buns,.fields,.perks,.stockist-grid{grid-template-columns:minmax(0,1fr)}
+  .specs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .logo,.logo img{height:52px}
+  .testi{display:flex;flex-direction:column}
+  .testi .slot{aspect-ratio:4/3;min-height:0}
+  .badge{left:12px;bottom:12px;padding:10px 14px;border-radius:var(--r-sm)}
+  .badge strong{font-size:18px} .badge span{font-size:12px}
+  .section{padding-block:72px}
+  .dark{border-radius:32px 32px 0 0}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="top"><div class="wrap"><span>Fresh across NSW &amp; ACT · Frozen Australia-wide through distributors</span><span>Mon–Sat 9am–5pm · 02 8776 7520</span></div></div>
+
+<header class="site" id="header">
+  <div class="wrap nav">
+    <a class="logo" href="#" aria-label="Urbun Bakery home"><img data-slot="logo" src="images/logo-black.png" alt="Urbun Bakery"></a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="menu">Menu</button>
+    <nav class="menu" id="menu" aria-label="Main">
+      <a href="#distributors">Distributors</a>
+      <a href="#buns">Our buns</a>
+      <a href="#how">How it works</a>
+      <a href="#delivery">Where we supply</a>
+      <a class="btn btn-red" href="#enquire" data-aud="distributor">Become a distributor</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="wrap hero">
+  <div class="hero-copy">
+    <span class="tag">Family-owned Sydney bakery · Fresh &amp; frozen</span>
+    <h1>The best burgers begin with the best buns.</h1>
+    <p class="lede">Sydney's burger bun specialists, now frozen and ready for distributors supplying kitchens across Australia.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <a class="btn btn-red" href="#enquire" data-aud="distributor">Become a distributor</a>
+      <a class="btn btn-light" href="#distributors">See the frozen range</a>
+    </div>
+    <p class="note" style="color:var(--crust)">Run a venue in Sydney, Canberra, Wollongong or the Southern Highlands? <a href="#enquire" data-aud="venue" style="font-weight:700">Order fresh direct →</a></p>
+    <div class="facts">
+      <div><strong>6</strong><span>bun recipes</span></div>
+      <div><strong>6 months</strong><span>frozen shelf life</span></div>
+      <div><strong>National</strong><span>through distributor partners</span></div>
+    </div>
+  </div>
+  <div class="hero-media">
+    <div class="slot"><img data-slot="Hero photo" src="images/hero-bun.jpg" alt="Smash burger with cheese, onions and pickles on a glossy Urbun bun"></div>
+  </div>
+</section>
+
+<section id="distributors" class="dark">
+  <div class="wrap section">
+    <div class="dist">
+      <div class="dist-copy">
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+          <span class="eyebrow" style="color:var(--sesame)">For frozen distributors</span>
+          <span class="haccp"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>HACCP certified</span>
+        </div>
+        <h2>Bakery-fresh buns, frozen for national supply.</h2>
+        <p class="lede" style="color:var(--line)">Add a specialist burger bun range to your frozen catalogue. Same recipes Sydney's burger venues use, baked, frozen and packed to travel the cold chain.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn btn-red" href="#enquire" data-aud="distributor">Become a distributor</a>
+          <a class="btn" style="background:var(--sesame);color:var(--crust)" href="#enquire" data-aud="distributor" data-msg="Please send spec sheets and frozen pricing.">Request spec sheets</a>
+        </div>
+      </div>
+      <div class="slot dist-photo"><img data-slot="Frozen cartons or pallet" src="images/frozen-pack.jpg" alt="Urbun frozen bun cartons ready for dispatch"></div>
+    </div>
+    <div class="specs" aria-label="Frozen range specifications">
+      <div><span>Frozen shelf life</span><strong>6 months</strong><em>at −18°C</em></div>
+      <div><span>Thaw to serve</span><strong>Overnight</strong><em>in the fridge</em></div>
+      <div><span>Pack</span><strong>30 buns</strong><em>per carton</em></div>
+      <div><span>Pallet</span><strong>48 cartons</strong><em>1,440 buns per pallet</em></div>
+      <div><span>Minimum order</span><strong>2 pallets</strong><em>96 cartons · 2,880 buns</em></div>
+      <div><span>Lead time</span><strong>2–3 weeks</strong><em>from order to dispatch</em></div>
+    </div>
+    <div class="stocked" aria-label="Distributors that stock Urbun">
+      <span>Frozen range stocked by</span>
+      <ul>
+        <li>PFD Food Services</li>
+        <li>Superior Food Services</li>
+        <li>Bidfood</li>
+        <li>The Provedores</li>
+        <li>Tasfresh Foodservice</li>
+        <li>Daily Fresh Food Service</li>
+      </ul>
+    </div>
+    <div class="perks">
+      <div><h3>All six recipes</h3><p>Milk, brioche, potato, hybrid pretzel, Texas Loaf, and gluten free &amp; vegan, so one supplier covers the whole menu.</p></div>
+      <div><h3>HACCP-certified bakery</h3><p>Food safety you can show your customers, with every batch quality-checked so venues in Perth get the same bun as venues in Sydney.</p></div>
+      <div><h3>Specs &amp; allergens ready</h3><p>Product specs, allergen and nutrition information for your catalogue and customers.</p></div>
+      <div><h3>Custom &amp; private label</h3><p>Need a custom size, topping or your own branding? <a href="#enquire" data-aud="distributor" data-msg="We'd like to talk about custom or private label buns." style="color:var(--sesame);font-weight:700">Ask us</a>.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="buns" class="cream">
+  <div class="wrap section">
+    <div class="head">
+      <h2>Pick your bun</h2>
+      <div>
+        <p class="lede" style="color:var(--muted)">Six recipes plus sesame and slider versions, fresh for local venues or frozen for distribution. Not sure which suits? We'll send samples.</p>
+        <span class="sliced"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Sliced for your convenience</span>
+      </div>
+    </div>
+    <div class="buns">
+      <article class="bun"><div class="slot"><img data-slot="Milk bun" src="images/bun-milk.jpg" alt="Urbun T2 milk bun held in a hand in front of an Urbun carton"></div><div class="bun-body"><h3>Milk</h3><p>Our T2 milk bun. Soft, light and slightly sweet, the all-rounder for smash burgers.</p><div class="pills"><span class="pill">Most popular</span><span class="pill">80–105g</span></div></div></article>
+      <article class="bun"><div class="slot"><img data-slot="Sesame milk bun" src="images/bun-sesame.jpg" alt="Burger on an Urbun milk bun topped with black and white sesame"></div><div class="bun-body"><h3>Sesame milk</h3><p>The same milk bun topped with white or mixed black-and-white sesame.</p><div class="pills"><span class="pill">White</span><span class="pill">Mixed</span></div></div></article>
+      <article class="bun"><div class="slot"><img data-slot="Brioche bun" src="images/bun-brioche.jpg" alt="Cheeseburger on a glossy Urbun brioche bun with chips"></div><div class="bun-body"><h3>Brioche</h3><p>Rich, buttery and glossy. Made for premium and loaded burgers.</p><div class="pills"><span class="pill">Plain or sesame</span></div></div></article>
+      <article class="bun"><div class="slot"><img data-slot="Potato bun" src="images/bun-potato.jpg" alt="Pulled pork burger with cheese, hash brown and red cabbage on a golden Urbun potato bun"></div><div class="bun-body"><h3>Potato</h3><p>Pillowy and moist. Squashes down without falling apart.</p></div></article>
+      <article class="bun"><div class="slot"><img data-slot="Hybrid pretzel bun" src="images/bun-pretzel.jpg" alt="Cheeseburger on a scored, dark-crust Urbun hybrid pretzel bun"></div><div class="bun-body"><h3>Hybrid pretzel</h3><p>Dark, chewy crust and a soft middle. Stands up to big sauces.</p></div></article>
+      <article class="bun"><div class="slot"><img data-slot="Gluten free &amp; vegan bun" src="images/bun-gf.jpg" alt="Double cheeseburger on an Urbun gluten free and vegan bun"></div><div class="bun-body"><h3>Gluten free &amp; vegan</h3><p>One bun for coeliac and plant-based guests, with the same soft bite.</p><div class="pills"><span class="pill leaf">GF</span><span class="pill leaf">Vegan</span></div></div></article>
+      <article class="bun"><div class="slot"><img data-slot="Slider buns" src="images/bun-slider.jpg" alt="A stack of cheeseburger sliders on Urbun slider buns"></div><div class="bun-body"><h3>Sliders</h3><p>Mini 70mm milk buns for share plates and events. Also in GF &amp; vegan.</p></div></article>
+      <article class="bun"><div class="slot"><img data-slot="Texas Loaf" src="images/bun-texas.jpg" alt="Toasted, herb-topped slices of sesame Urbun Texas Loaf on a tray"></div><div class="bun-body"><h3>Texas Loaf</h3><p>A soft, sesame-topped loaf for thick-cut Texas toast and sandwiches.</p><div class="pills"><span class="pill">Sesame</span></div></div></article>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap section">
+    <div class="head"><h2>How it works</h2>
+      <div class="tabs" role="tablist" aria-label="Choose your business">
+        <button role="tab" id="tab-dist" aria-selected="true" aria-controls="steps-dist">Distributors</button>
+        <button role="tab" id="tab-venue" aria-selected="false" aria-controls="steps-venue">Venues</button>
+      </div>
+    </div>
+    <ol class="steps" id="steps-dist" role="tabpanel" aria-labelledby="tab-dist">
+      <li><span class="n">1</span><h3>Get specs &amp; pricing</h3><p>Tell us your regions and volumes. We send spec sheets and frozen trade pricing.</p></li>
+      <li><span class="n">2</span><h3>Test samples</h3><p>A frozen sample carton of each bun to thaw, toast and show your customers.</p></li>
+      <li><span class="n">3</span><h3>Trial order</h3><p>Place a first order (minimum 2 pallets) and agree regular production slots.</p></li>
+      <li><span class="n">4</span><h3>Supply nationally</h3><p>Standing orders, baked and frozen to schedule, ready for your cold chain.</p></li>
+    </ol>
+    <ol class="steps" id="steps-venue" role="tabpanel" aria-labelledby="tab-venue" hidden>
+      <li><span class="n">1</span><h3>Tell us about your venue</h3><p>Menu, volume and which buns you're curious about.</p></li>
+      <li><span class="n">2</span><h3>Try samples</h3><p>We send a sample box and tweak the recipe until it suits your burger.</p></li>
+      <li><span class="n">3</span><h3>Pick delivery days</h3><p>Any days Monday to Saturday. Fresh delivery in Sydney, Canberra, Wollongong and the Southern Highlands.</p></li>
+      <li><span class="n">4</span><h3>Fresh every delivery</h3><p>Outside those regions? We'll connect you with a distributor near you.</p></li>
+    </ol>
+    <div class="who" aria-label="Who we supply"><span>Frozen food distributors</span><span>Foodservice wholesalers</span><span>Burger chains</span><span>Pubs &amp; bistros</span><span>Cafés</span><span>Food trucks</span><span>Caterers</span></div>
+    <div class="testis" id="testimonials">
+      <div class="head">
+        <h2 style="font-size:clamp(34px,4.4vw,56px)">What our customers say</h2>
+        <a class="btn btn-dark" href="https://www.instagram.com/urbunbakery/" target="_blank" rel="noopener">Watch the videos</a>
+      </div>
+      <div class="testi-grid">
+        <figure class="testi">
+          <div class="slot"><img src="images/customer-ross.jpg" alt="Ross from Super Nash Brothers in his kitchen, with Urbun Bakery cartons behind him"></div>
+          <div class="testi-body">
+            <p class="hl">“Our most consistent supplier.”</p>
+            <blockquote>“We've been using Urbun for about five years now, and they have been our most consistent supplier since we started the business. They've always got stock, they're always able to accommodate any changes we need, they deliver daily, and they're always awesome when we need to get something custom made.”</blockquote>
+            <figcaption><strong>Ross</strong><span>Super Nash Brothers · customer for 5 years</span></figcaption>
+          </div>
+        </figure>
+        <figure class="testi">
+          <div class="slot"><img src="images/customer-sam.jpg" alt="Chef Sam at The Plaza Bistro"></div>
+          <div class="testi-body">
+            <p class="hl">“Service is great, price is on point.”</p>
+            <blockquote>“I absolutely love their buns. I've been using them for about three to four years now. At the moment we use their pretzel bun, it's a bit of a hybrid and I'm just loving it. On Mondays we do a $15 burger with it and people here are absolutely loving it. Service is great, price is on point, and that's all you need.”</blockquote>
+            <figcaption><strong>Chef Sam</strong><span>Executive Chef, The Plaza Bistro · Sydney CBD</span></figcaption>
+          </div>
+        </figure>
+        <figure class="testi">
+          <div class="slot"><img src="images/customer-sarah.jpg" alt="Sarah at Ibby's Burgers, under the Ibby's neon sign" style="object-position:right center"></div>
+          <div class="testi-body">
+            <p class="hl">“The buns just taste amazing.”</p>
+            <blockquote>“We've been using Urbun Bakery for the last couple of years now and we love everything about them. The ordering process is easy. Their customer service is great. We love the way it's packaged, and most of all the buns just taste amazing.”</blockquote>
+            <figcaption><strong>Sarah</strong><span>Ibby's Burgers</span></figcaption>
+          </div>
+        </figure>
+        <figure class="testi">
+          <div class="slot"><img src="images/customer-colin.jpg" alt="Colin holding an Urbun bun in front of the Mr Loaded burger truck" style="object-position:72% center"></div>
+          <div class="testi-body">
+            <p class="hl">“Haven't even had a thought to change.”</p>
+            <blockquote>“Their quality, consistency, customer service, everything about them is just impeccable. We've been with them for about four or five years now. Haven't even had a thought to change, to be honest. Everything we need, they supply perfectly. So good on you guys. Keep doing what you're doing.”</blockquote>
+            <figcaption><strong>Colin</strong><span>Mr Loaded · customer for 4–5 years</span></figcaption>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="delivery" class="wrap section">
+  <div class="split">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <span class="eyebrow">Where we supply</span>
+      <h2>Fresh locally. Frozen nationally.</h2>
+      <p class="lede">Venues near our Sydney bakery get fresh buns delivered direct. Everywhere else, our frozen range reaches kitchens through distributor partners.</p>
+      <a class="btn btn-dark" href="#enquire" data-aud="distributor" style="align-self:flex-start">Cover a region for us</a>
+    </div>
+    <div class="regions">
+      <div class="region wide"><strong>Frozen · Australia-wide</strong><span>Stocked by PFD, Superior, Bidfood, The Provedores and more. New partners welcome in every state and territory.</span></div>
+      <div class="region"><strong>Sydney</strong><span>Fresh direct, or through IFD, Artisan Bake, Patrick's Continental Breads &amp; more</span></div>
+      <div class="region"><strong>Canberra</strong><span>Fresh, direct delivery</span></div>
+      <div class="region"><strong>Wollongong</strong><span>Fresh, direct delivery</span></div>
+      <div class="region"><strong>Southern Highlands</strong><span>Fresh, direct delivery</span></div>
+    </div>
+  </div>
+</section>
+
+
+<section id="partners" class="partners" aria-labelledby="partners-title">
+  <div class="wrap partners-head">
+    <span class="eyebrow">Our trusted partners</span>
+    <h2 id="partners-title">Stocked by Australia's leading foodservice distributors.</h2>
+    <p>Fresh across Sydney, frozen in every mainland state and Tasmania. Order through your usual distributor and ask for Urbun.</p>
+  </div>
+  <div class="marquee">
+    <ul class="marquee-track">
+        <li class="partner"><img src="images/partners/pfd.svg" alt="PFD Food Services" loading="lazy"><span class="ptype frozen">Frozen</span></li>
+        <li class="partner dark"><img src="images/partners/ifd.png" alt="IFD" loading="lazy"><span class="ptype fresh">Fresh</span></li>
+        <li class="partner dark"><img src="images/partners/superior.png" alt="Superior Food Services" loading="lazy"><span class="ptype frozen">Frozen</span></li>
+        <li class="partner dark"><img src="images/partners/artisan-bake.png" alt="Artisan Bake Distribution" loading="lazy"><span class="ptype fresh">Fresh</span></li>
+        <li class="partner"><img src="images/partners/bidfood.svg" alt="Bidfood" loading="lazy"><span class="ptype frozen">Frozen</span></li>
+        <li class="partner"><img src="images/partners/patricks.jpg" alt="Patrick&#x27;s Continental Breads" loading="lazy"><span class="ptype fresh">Fresh</span></li>
+        <li class="partner"><img src="images/partners/provedores.png" alt="The Provedores" loading="lazy"><span class="ptype frozen">Frozen</span></li>
+        <li class="partner"><span class="wordmark">Loaf Smith</span><span class="ptype fresh">Fresh</span></li>
+        <li class="partner"><img src="images/partners/daily-fresh.png" alt="Daily Fresh Food Service" loading="lazy"><span class="ptype frozen">Frozen</span></li>
+        <li class="partner"><img src="images/partners/reliable.svg" alt="Reliable Food Distributors" loading="lazy"><span class="ptype frozen">Frozen</span></li>
+        <li class="partner"><img src="images/partners/tasfresh.jpg" alt="Tasfresh Foodservice" loading="lazy"><span class="ptype frozen">Frozen</span></li>
+        <li class="partner" aria-hidden="true"><img src="images/partners/pfd.svg" alt="" loading="lazy"><span class="ptype frozen">Frozen</span></li>
+        <li class="partner dark" aria-hidden="true"><img src="images/partners/ifd.png" alt="" loading="lazy"><span class="ptype fresh">Fresh</span></li>
+        <li class="partner dark" aria-hidden="true"><img src="images/partners/superior.png" alt="" loading="lazy"><span class="ptype frozen">Frozen</span></li>
+        <li class="partner dark" aria-hidden="true"><img src="images/partners/artisan-bake.png" alt="" loading="lazy"><span class="ptype fresh">Fresh</span></li>
+        <li class="partner" aria-hidden="true"><img src="images/partners/bidfood.svg" alt="" loading="lazy"><span class="ptype frozen">Frozen</span></li>
+        <li class="partner" aria-hidden="true"><img src="images/partners/patricks.jpg" alt="" loading="lazy"><span class="ptype fresh">Fresh</span></li>
+        <li class="partner" aria-hidden="true"><img src="images/partners/provedores.png" alt="" loading="lazy"><span class="ptype frozen">Frozen</span></li>
+        <li class="partner" aria-hidden="true"><span class="wordmark">Loaf Smith</span><span class="ptype fresh">Fresh</span></li>
+        <li class="partner" aria-hidden="true"><img src="images/partners/daily-fresh.png" alt="" loading="lazy"><span class="ptype frozen">Frozen</span></li>
+        <li class="partner" aria-hidden="true"><img src="images/partners/reliable.svg" alt="" loading="lazy"><span class="ptype frozen">Frozen</span></li>
+        <li class="partner" aria-hidden="true"><img src="images/partners/tasfresh.jpg" alt="" loading="lazy"><span class="ptype frozen">Frozen</span></li>
+    </ul>
+  </div>
+  <div class="wrap partners-cta">
+    <a class="btn btn-dark" href="#enquire" data-aud="distributor">Become a partner</a>
+  </div>
+</section>
+
+<section class="wrap" style="padding-bottom:100px;display:flex;flex-direction:column;gap:28px">
+  <div class="head"><h2 style="font-size:clamp(32px,4vw,52px)">Seen on @urbunbakery</h2><a class="btn btn-dark" href="https://www.instagram.com/urbunbakery/" target="_blank" rel="noopener">Follow on Instagram</a></div>
+  <div class="gallery">
+    <div class="slot"><img data-slot="Gallery 1" src="images/gallery-1.jpg" alt="Burger made with Urbun buns"></div>
+    <div class="slot"><img data-slot="Gallery 2" src="images/gallery-2.jpg" alt="Burger made with Urbun buns"></div>
+    <div class="slot"><img data-slot="Gallery 3" src="images/gallery-3.jpg" alt="Burger made with Urbun buns"></div>
+    <div class="slot"><img data-slot="Gallery 4" src="images/gallery-4.jpg" alt="Burger made with Urbun buns"></div>
+  </div>
+</section>
+
+<section id="enquire" class="wrap" style="padding-bottom:100px">
+  <div class="enquire">
+    <div class="contact">
+      <span class="eyebrow">Partner with Urbun</span>
+      <h2>Let's talk buns</h2>
+      <p class="lede">Looking for a better bun? Tell us what you're making and we'll help you find the right one. Send an enquiry or give us a call, and we'll get back to you within 24–48 hours.</p>
+      <dl><dt>Call</dt><dd>02 8776 7520</dd><dt>Email</dt><dd>hello@urbunbakery.com.au</dd><dt>Hours</dt><dd>Mon–Sat, 9am–5pm</dd></dl>
+    </div>
+    <form id="form" novalidate>
+      <fieldset><legend>I'm enquiring as a</legend>
+        <div class="checks" id="aud">
+          <label><input type="radio" name="audience" value="distributor" checked>Distributor or wholesaler</label>
+          <label><input type="radio" name="audience" value="venue">Venue or restaurant</label>
+        </div>
+      </fieldset>
+      <div class="fields">
+        <label class="f" for="biz">Business name<input id="biz" name="business" required autocomplete="organization"></label>
+        <label class="f" for="name">Your name<input id="name" name="name" required autocomplete="name"></label>
+        <label class="f" for="email">Email<input id="email" name="email" type="email" required autocomplete="email"></label>
+        <label class="f" for="phone">Phone<input id="phone" name="phone" type="tel" autocomplete="tel"></label>
+        <label class="f" for="vol-d" data-for="distributor">Expected volume<select id="vol-d" name="volume_distributor"><option>2 pallets (minimum order)</option><option>2–5 pallets a month</option><option>5–20 pallets a month</option><option>20+ pallets a month</option></select></label>
+        <label class="f" for="cold" data-for="distributor">Frozen storage<select id="cold" name="cold_chain"><option>Own frozen warehouse &amp; fleet</option><option>Third-party cold storage</option><option>Setting up frozen range</option></select></label>
+        <label class="f" for="type" data-for="venue" hidden>Venue type<select id="type" name="venue"><option>Burger joint</option><option>Pub or bistro</option><option>Café</option><option>Food truck</option><option>Caterer</option></select></label>
+        <label class="f" for="vol" data-for="venue" hidden>Buns per week<select id="vol" name="volume"><option>Under 500</option><option>500–2,000</option><option>2,000–5,000</option><option>5,000+</option><option>Not sure yet</option></select></label>
+      </div>
+      <fieldset data-for="distributor"><legend>States you supply</legend>
+        <div class="checks">
+          <label><input type="checkbox" name="states" value="NSW">NSW</label>
+          <label><input type="checkbox" name="states" value="VIC">VIC</label>
+          <label><input type="checkbox" name="states" value="QLD">QLD</label>
+          <label><input type="checkbox" name="states" value="WA">WA</label>
+          <label><input type="checkbox" name="states" value="SA">SA</label>
+          <label><input type="checkbox" name="states" value="TAS">TAS</label>
+          <label><input type="checkbox" name="states" value="ACT">ACT</label>
+          <label><input type="checkbox" name="states" value="NT">NT</label>
+        </div>
+      </fieldset>
+      <fieldset><legend>Buns you're interested in</legend>
+        <div class="checks">
+          <label><input type="checkbox" name="buns" value="milk">Milk</label>
+          <label><input type="checkbox" name="buns" value="brioche">Brioche</label>
+          <label><input type="checkbox" name="buns" value="potato">Potato</label>
+          <label><input type="checkbox" name="buns" value="sesame">Sesame milk</label>
+          <label><input type="checkbox" name="buns" value="pretzel">Hybrid pretzel</label>
+          <label><input type="checkbox" name="buns" value="gfv">Gluten free &amp; vegan</label>
+          <label><input type="checkbox" name="buns" value="slider">Sliders</label>
+          <label><input type="checkbox" name="buns" value="texas">Texas Loaf</label>
+        </div>
+      </fieldset>
+      <label class="f" for="msg">Anything else?<textarea id="msg" name="message" rows="3"></textarea></label>
+      <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+        <button class="btn btn-red" type="submit">Send enquiry</button>
+        <p class="note" id="err" role="alert"></p>
+      </div>
+      <p class="privacy-note" style="font-size:14px;color:var(--muted);margin:0">We'll only use your details to reply to your enquiry. See our <a href="privacy.html">Privacy Policy</a>.</p>
+      <p class="sent" role="status">Thanks! This is a demo, so nothing was sent. On the live site this goes to hello@urbunbakery.com.au.</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap careers" id="careers">
+    <div><h2 style="font-size:clamp(32px,4vw,48px)">Join the Urbun Family</h2><p>Bakers who care about quality and consistency. Email hr@urbunbakery.com.au</p></div>
+    <a class="btn" style="background:var(--sesame);color:var(--crust)" href="#careers">See open roles</a>
+  </div>
+  <div class="wrap foot">
+    <div><span class="wm"><img src="images/logo-ink.png" alt="Urbun Bakery"></span></div>
+    <div><h3>Bakery</h3><ul><li><a href="#distributors">Distributors</a></li><li><a href="#buns">Our buns</a></li><li><a href="#how">How it works</a></li><li><a href="#delivery">Where we supply</a></li><li><a href="#careers">Careers</a></li></ul></div>
+    <div><h3>Contact</h3><ul><li>02 8776 7520</li><li>hello@urbunbakery.com.au</li><li>Mon–Sat, 9am–5pm</li></ul></div>
+    <div><h3>Follow</h3><ul><li><a href="https://www.instagram.com/urbunbakery/" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.facebook.com/pages/category/Wholesale-Bakery/Urbun-Bakery-140448179856301/" target="_blank" rel="noopener">Facebook</a></li></ul></div>
+  </div>
+  <div class="wrap legal"><span>© 2026 Urbun Bakery · Sydney, Australia · Wholesale only · <a href="privacy.html">Privacy Policy</a></span><span>HACCP certified · Mallia Industries Pty Ltd · ABN 25 617 284 705</span></div>
+</footer>
+
+<script>
+// Image slots: try the real file, then a fallback, then show a labelled placeholder.
+document.querySelectorAll('img').forEach(function(img){
+  function fail(){
+    var fb=img.getAttribute('data-fallback');
+    if(fb){img.removeAttribute('data-fallback');img.src=fb;return;}
+    var slot=img.closest('.slot'); if(!slot) return;
+    var ph=document.createElement('div');ph.className='ph';
+    ph.innerHTML='<b></b><code></code>';
+    ph.querySelector('b').textContent=img.getAttribute('data-slot')||'Photo';
+    ph.querySelector('code').textContent=img.getAttribute('src');
+    img.remove();slot.appendChild(ph);
+  }
+  img.addEventListener('error',fail);
+  if(img.complete&&img.naturalWidth===0&&img.getAttribute('src'))fail();
+});
+// Mobile menu
+var burger=document.getElementById('burger'),menu=document.getElementById('menu');
+burger.addEventListener('click',function(){var o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o);burger.textContent=o?'Close':'Menu';});
+menu.addEventListener('click',function(e){if(e.target.tagName==='A'){menu.classList.remove('open');burger.setAttribute('aria-expanded','false');burger.textContent='Menu';}});
+// Header border on scroll
+var hd=document.getElementById('header');
+addEventListener('scroll',function(){hd.classList.toggle('scrolled',scrollY>40)},{passive:true});
+// How-it-works tabs
+var tabs=document.querySelectorAll('[role=tab]');
+function showTab(id){tabs.forEach(function(t){var on=t.id===id;t.setAttribute('aria-selected',on);document.getElementById(t.getAttribute('aria-controls')).hidden=!on;});}
+tabs.forEach(function(t){t.addEventListener('click',function(){showTab(t.id)});});
+// Audience switch in the form
+function setAud(a){
+  var r=document.querySelector('input[name=audience][value='+a+']'); if(r) r.checked=true;
+  document.querySelectorAll('[data-for]').forEach(function(el){el.hidden=el.getAttribute('data-for')!==a;});
+  showTab(a==='venue'?'tab-venue':'tab-dist');
+}
+document.getElementById('aud').addEventListener('change',function(e){setAud(e.target.value)});
+document.querySelectorAll('a[data-aud]').forEach(function(a){a.addEventListener('click',function(){setAud(a.getAttribute('data-aud'));var m=a.getAttribute('data-msg');if(m)document.getElementById('msg').value=m;});});
+// Demo form
+var form=document.getElementById('form'),err=document.getElementById('err');
+form.addEventListener('submit',function(e){
+  e.preventDefault();
+  var missing=[].filter.call(form.querySelectorAll('[required]'),function(i){return !i.value.trim()});
+  var em=document.getElementById('email');
+  if(missing.length){err.textContent='Please fill in your business name, name and email.';missing[0].focus();return;}
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em.value)){err.textContent='That email address doesn’t look right.';em.focus();return;}
+  err.textContent='';form.classList.add('done');
+});
+</script>
+</body>
+</html>
