@@ -17,13 +17,13 @@
 <link rel="icon" type="image/png" sizes="48x48" href="images/icons/favicon-48.png">
 <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
 <meta name="theme-color" content="#F4C542">
-<link rel="canonical" href="https://jjcmallia-ops.github.io/urbun-website/">
+<link rel="canonical" href="https://urbunbakery.com.au/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Urbun Bakery">
 <meta property="og:title" content="Urbun Bakery · Wholesale burger buns, Sydney">
 <meta property="og:description" content="Sydney burger bun specialists. Fresh buns for venues across NSW &amp; ACT, and frozen buns Australia-wide through foodservice distributors.">
-<meta property="og:url" content="https://jjcmallia-ops.github.io/urbun-website/">
-<meta property="og:image" content="https://jjcmallia-ops.github.io/urbun-website/images/og-image.jpg">
+<meta property="og:url" content="https://urbunbakery.com.au/">
+<meta property="og:image" content="https://urbunbakery.com.au/images/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Smash burger on a glossy Urbun bun">
@@ -315,6 +315,9 @@ main:focus{outline:none}
 .insta .head{align-items:center}
 @media (max-width:980px){.insta{padding-block:72px}}
 @media (max-width:600px){.regions{grid-template-columns:1fr;gap:10px}.region{padding:18px 22px}.region strong{font-size:26px}}
+.hp{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+form button[disabled]{opacity:.7;cursor:default}
+form:not(.done) button[disabled]{cursor:progress}
 /* ---------- Motion ---------- */
 @keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
 @keyframes pop{from{opacity:0;transform:scale(.94) rotate(-1.5deg)}to{opacity:1;transform:none}}
@@ -352,9 +355,9 @@ main:focus{outline:none}
  "name": "Urbun Bakery",
  "legalName": "Mallia Industries Pty Ltd",
  "description": "Sydney burger bun specialists supplying fresh buns to venues across NSW and ACT, and frozen buns Australia-wide through foodservice distributors.",
- "url": "https://jjcmallia-ops.github.io/urbun-website/",
- "logo": "https://jjcmallia-ops.github.io/urbun-website/images/icons/icon-512.png",
- "image": "https://jjcmallia-ops.github.io/urbun-website/images/og-image.jpg",
+ "url": "https://urbunbakery.com.au/",
+ "logo": "https://urbunbakery.com.au/images/icons/icon-512.png",
+ "image": "https://urbunbakery.com.au/images/og-image.jpg",
  "telephone": "+61 2 8776 7520",
  "email": "hello@urbunbakery.com.au",
  "foundingDate": "2017",
@@ -831,6 +834,7 @@ main:focus{outline:none}
       <dl><dt>Call</dt><dd><a href="tel:+61287767520">02 8776 7520</a></dd><dt>Email</dt><dd><a href="mailto:hello@urbunbakery.com.au">hello@urbunbakery.com.au</a></dd><dt>Hours</dt><dd>Mon–Sat, 9am–5pm</dd></dl>
     </div>
     <form id="form" novalidate>
+      <div class="hp" aria-hidden="true"><label>Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
       <fieldset><legend>I'm enquiring as a</legend>
         <div class="checks" id="aud">
           <label><input type="radio" name="audience" value="distributor" checked>Distributor or wholesaler</label>
@@ -877,7 +881,7 @@ main:focus{outline:none}
         <p class="note" id="err" role="alert"></p>
       </div>
       <p class="privacy-note" style="font-size:14px;color:var(--muted);margin:0">We'll only use your details to reply to your enquiry. See our <a href="privacy.html">Privacy Policy</a>.</p>
-      <p class="sent" role="status">Thanks! This is a demo, so nothing was sent. On the live site this goes to hello@urbunbakery.com.au.</p>
+      <p class="sent" role="status">Thanks, your enquiry is on its way! We’ll get back to you within 24–48 hours.</p>
     </form>
   </div>
 </section>
@@ -938,13 +942,34 @@ document.getElementById('aud').addEventListener('change',function(e){setAud(e.ta
 document.querySelectorAll('a[data-aud]').forEach(function(a){a.addEventListener('click',function(){setAud(a.getAttribute('data-aud'));var m=a.getAttribute('data-msg');if(m)document.getElementById('msg').value=m;});});
 // Demo form
 var form=document.getElementById('form'),err=document.getElementById('err');
+var formStarted=Date.now();
 form.addEventListener('submit',function(e){
   e.preventDefault();
   var missing=[].filter.call(form.querySelectorAll('[required]'),function(i){return !i.value.trim()});
   var em=document.getElementById('email');
   if(missing.length){err.textContent='Please fill in your business name, name and email.';missing[0].focus();return;}
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em.value)){err.textContent='That email address doesn’t look right.';em.focus();return;}
-  err.textContent='';form.classList.add('done');
+  err.textContent='';
+  // Collect the visible fields (venue-only or distributor-only fields are hidden for the other audience).
+  var data={elapsed:Date.now()-formStarted};
+  [].forEach.call(form.elements,function(el){
+    if(!el.name||el.disabled||el.closest('[hidden]'))return;
+    if((el.type==='checkbox'||el.type==='radio')&&!el.checked)return;
+    if(el.type==='checkbox'){(data[el.name]=data[el.name]||[]).push(el.value);}else{data[el.name]=el.value;}
+  });
+  var btn=form.querySelector('button[type=submit]');
+  btn.disabled=true;btn.textContent='Sending…';
+  fetch('/api/enquiry',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+    .then(function(r){return r.json().catch(function(){return {ok:false};}).then(function(j){if(!r.ok||!j.ok)throw j;});})
+    .then(function(){
+      form.classList.add('done');btn.textContent='Sent';
+      window.dataLayer=window.dataLayer||[];dataLayer.push({event:'enquiry_submit',audience:data.audience});
+    })
+    .catch(function(j){
+      var msg=j&&j.error&&/\s/.test(j.error)?j.error:'Sorry, your enquiry didn’t send.';
+      err.textContent=msg+' You can also email hello@urbunbakery.com.au or call 02 8776 7520.';
+      btn.disabled=false;btn.textContent='Send enquiry';
+    });
 });
 </script>
 <script>

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jjcmallia-ops.github.io/urbun-website/sitemap.xml
+Sitemap: https://urbunbakery.com.au/sitemap.xml

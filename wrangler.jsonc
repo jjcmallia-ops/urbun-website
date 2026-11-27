@@ -1,0 +1,21 @@
+// Cloudflare Workers settings for urbunbakery.com.au.
+// The site's files are served as static assets; worker/index.js handles the enquiry form.
+{
+  "name": "urbun-website",
+  "main": "worker/index.js",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./",
+    "binding": "ASSETS",
+    // Show 404.html for pages that don't exist.
+    "not_found_handling": "404-page",
+    // Form posts go straight to the script; everything else is served as a file first.
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "ENQUIRY_TO": "hello@urbunbakery.com.au",
+    "ENQUIRY_FROM": "Urbun Bakery website <website@urbunbakery.com.au>"
+  },
+  // RESEND_API_KEY is a secret: add it in the Cloudflare dashboard, never in this file.
+  "observability": { "enabled": true }
+}
