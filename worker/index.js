@@ -74,9 +74,11 @@ async function handleEnquiry(request, env, url) {
   if (!EMAIL_RE.test(f.email)) {
     return json({ ok: false, error: 'That email address doesn’t look right.' }, 400);
   }
-  if (!env.RESEND_API_KEY || !env.ENQUIRY_TO || !env.ENQUIRY_FROM) {
-    console.error('Enquiry form is not configured: missing RESEND_API_KEY, ENQUIRY_TO or ENQUIRY_FROM');
-    return json({ ok: false, error: 'not_configured' }, 503);
+  // Names only, never values, so a broken setup can be diagnosed from the response.
+  const missing = ['RESEND_API_KEY', 'ENQUIRY_TO', 'ENQUIRY_FROM'].filter((k) => !env[k]);
+  if (missing.length) {
+    console.error('Enquiry form is not configured, missing:', missing.join(', '));
+    return json({ ok: false, error: 'not_configured', missing }, 503);
   }
 
   const rows = [
